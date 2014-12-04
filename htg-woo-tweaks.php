@@ -2,7 +2,7 @@
 	/*
 	Plugin Name: HTG Woo Tweaks
 	Description: Extends the functionality of basic WordPress and WooCommerce to meet the needs of the Hometown Giving business model
-	Version: 1.0
+	Version: 1.1
 	Author: Brad Chandonnet
 	Author URI: http://bradchandonnet.com
 	License: GPLv2
@@ -16,7 +16,7 @@
 		
 		global $woocommerce;
 		
-		$htg_bus_membership_id = 313; //This is the ID of the membership product
+		$htg_bus_membership_id = 313; //This is the ID of the membership product (I know it's hard coded!)
 		 
 		foreach($woocommerce->cart->get_cart() as $cart_item_key => $values ) {
 	        
@@ -32,6 +32,19 @@
     		     
 	    return true; //Charge the fee
 	}
+
+
+
+	//This function changes the coupon message in the checkout screen
+		
+	add_filter( 'woocommerce_checkout_coupon_message', 'htg_rename_coupon_message_on_checkout' );
+	
+	function htg_rename_coupon_message_on_checkout() {
+		
+		 return '<a href="#" class="showcoupon">Redeeming A Hometown Giving Gift Credit? -- Click here to enter your code.</a>';
+    	
+    }
+
 	
 	
 	//This function hides any memberships from the shop page
